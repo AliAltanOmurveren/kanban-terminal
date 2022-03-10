@@ -1,4 +1,5 @@
 # kanban-terminal
+![kanban-terminal](/kanban.png)
 
 ## Controls:
 
