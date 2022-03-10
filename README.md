@@ -2,16 +2,25 @@
 
 ## Controls:
 
-Ctrl + Up -> Project index + 1\n
-Ctrl + Down -> Project index - 1\n
-Ctrl + n -> Create a new project\n
-Ctrl + e -> Edit current project's name\n
-Ctrl + Delete -> Delete current project\n
+Ctrl + Up -> Project index + 1
 
-Shift + Right -> Move a task to the right column\n
-Shift + Left -> Move a task to the left column\n
+Ctrl + Down -> Project index - 1
 
-n -> Add a new task in the current column\n
-e -> Edit highlighted task's name\n
+Ctrl + n -> Create a new project
 
-Delete -> Delete current task\n
+Ctrl + e -> Edit current project's name
+
+Ctrl + Delete -> Delete current project
+
+
+Shift + Right -> Move a task to the right column
+
+Shift + Left -> Move a task to the left column
+
+
+n -> Add a new task in the current column
+
+e -> Edit highlighted task's name
+
+
+Delete -> Delete current task
