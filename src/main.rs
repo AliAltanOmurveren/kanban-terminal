@@ -907,21 +907,23 @@ fn handle_n_key(key: KeyEvent, app: &mut App){
             }else if app.focus.tab_focus == 3 {
                 // kanban
 
-                if app.focus.chunk_focus[3] == 0 {
+                if app.kanban.projects.len() > 0 {
+                    if app.focus.chunk_focus[3] == 0 {
                     // to do
                     
                     open_popup(app, Popup::AddTodo);
                     
 
-                }else if app.focus.chunk_focus[3] == 1 {
-                    // in progress
+                    }else if app.focus.chunk_focus[3] == 1 {
+                        // in progress
 
-                    open_popup(app, Popup::AddInProgress);
+                        open_popup(app, Popup::AddInProgress);
 
-                }else if app.focus.chunk_focus[3] == 2 {
-                    // done
+                    }else if app.focus.chunk_focus[3] == 2 {
+                        // done
 
-                    open_popup(app, Popup::AddDone);
+                        open_popup(app, Popup::AddDone);
+                    }
                 }
             }
         }
@@ -931,7 +933,7 @@ fn handle_n_key(key: KeyEvent, app: &mut App){
 fn deserialize_kanban(app: &mut App) -> seresult<()>{
 
     let p= std::env::current_exe().unwrap();
-    let mut json_path = String::from(p.parent().unwrap().to_str().unwrap());
+    let mut json_path = String::from(p.to_str().unwrap());
     json_path.push_str("\\kanban.json");
 
     let data = match fs::read_to_string(&json_path){
@@ -957,7 +959,7 @@ fn deserialize_kanban(app: &mut App) -> seresult<()>{
 fn serialize_kanban(app: &mut App) {
 
     let p= std::env::current_exe().unwrap();
-    let mut json_path = String::from(p.parent().unwrap().to_str().unwrap());
+    let mut json_path = String::from(p.to_str().unwrap());
     json_path.push_str("\\kanban.json");
 
     let j = serde_json::to_string_pretty(&app.kanban.projects).unwrap();
