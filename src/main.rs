@@ -937,8 +937,6 @@ fn deserialize_kanban(app: &mut App) -> seresult<()>{
         Err(_) => panic!("Directory creation error!"),
     }
 
-
-
     let mut json_path = directory_path.clone();
     json_path.push("projects.json");
 
