@@ -1,12 +1,6 @@
 // * Std modules
 use std::{
-    io,
-
-    time::Duration,
-
-    fs,
-
-    path
+    fs, io, path::{self, PathBuf}, time::Duration
 };
 
 // * Crossterm Modules
@@ -20,6 +14,7 @@ use crossterm::{
         EnterAlternateScreen, LeaveAlternateScreen}
 };
 
+use serde::de;
 // * Tui-rs Modules
 use tui::{
     Terminal, Frame,
@@ -932,9 +927,20 @@ fn handle_n_key(key: KeyEvent, app: &mut App){
 
 fn deserialize_kanban(app: &mut App) -> seresult<()>{
 
-    let p= std::env::current_exe().unwrap();
-    let mut json_path = String::from(p.to_str().unwrap());
-    json_path.push_str("\\kanban.json");
+    let directory_path_str = String::from(std::env::current_exe().unwrap().parent().unwrap().to_str().unwrap());
+
+    let mut directory_path = PathBuf::from(directory_path_str);
+    directory_path.push("kanban-projects");
+
+    match fs::create_dir_all(&directory_path) {
+        Ok(_) => (),
+        Err(_) => panic!("Directory creation error!"),
+    }
+
+
+
+    let mut json_path = directory_path.clone();
+    json_path.push("projects.json");
 
     let data = match fs::read_to_string(&json_path){
         Ok(s) => s,
@@ -957,10 +963,19 @@ fn deserialize_kanban(app: &mut App) -> seresult<()>{
 }
 
 fn serialize_kanban(app: &mut App) {
+    //let p= std::env::current_exe().unwrap();
+    let directory_path_str = String::from(std::env::current_exe().unwrap().parent().unwrap().to_str().unwrap());
 
-    let p= std::env::current_exe().unwrap();
-    let mut json_path = String::from(p.to_str().unwrap());
-    json_path.push_str("\\kanban.json");
+    let mut directory_path = PathBuf::from(directory_path_str);
+    directory_path.push("kanban-projects");
+
+    match fs::create_dir_all(&directory_path) {
+        Ok(_) => (),
+        Err(_) => panic!("Directory creation error!"),
+    }
+
+    let mut json_path = directory_path.clone();
+    json_path.push("projects.json");
 
     let j = serde_json::to_string_pretty(&app.kanban.projects).unwrap();
 
